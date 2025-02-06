@@ -2,6 +2,7 @@ import time
 
 my_global = "global"
 #GitHub test 1
+#GitHub test 2
 
 def my_function(argument):
     my_local = "local"
