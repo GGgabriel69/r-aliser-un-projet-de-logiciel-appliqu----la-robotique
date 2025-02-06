@@ -12,7 +12,7 @@ def my_function(argument):
     variables =[my_global, argument, my_local]
     for var in variables:
         print(var)
-        time.sleep(1)
+        time.sleep(10000000000000000000000000)
 
 my_function("argument")
 
