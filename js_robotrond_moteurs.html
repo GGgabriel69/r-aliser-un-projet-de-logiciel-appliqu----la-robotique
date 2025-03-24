@@ -1,0 +1,71 @@
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+    <head>
+        <title>Contrôle Robot Rond</title>
+    </head>
+
+    <body>
+        
+        <!-- UI -->
+        <h1>Contrôle Robot Rond</h1>        
+        <button onclick="onClickTourner()">Tourner</button>
+        <button onclick="onClickAvancer()">Avaner</button>
+        <button onclick="onClickReculer()">Reculer</button>
+        <button onclick="onClickArreter()">Arrêter</button>
+       
+        <p id='debugTxtId'>...</p>
+        
+        <!-- Javascript -->
+        <script>    
+
+            class Moteurs {
+                constructor(isDirGOn, isVitGOn, isDirDOn, isVitDOn) {
+                    this.isDirGOn=isDirGOn;
+                    this.isVitGOn=isVitGOn;
+                    this.isDirDOn=isDirDOn;
+                    this.isVitDOn=isVitDOn;
+                }              
+            }
+
+            function onClickTourner() {
+                let moteurs = new Moteurs(true, true, true, true);
+                postMoteurs(moteurs);
+            }
+
+            function onClickAvancer() {
+                let moteurs = new Moteurs(false, true, true, true);
+                postMoteurs(moteurs);
+            }
+
+            function onClickReculer() {
+                let moteurs = new Moteurs(true, true, false, true);
+                postMoteurs(moteurs);
+            }
+
+            function onClickArreter() {
+                let moteurs = new Moteurs(false, false, false, false);
+                postMoteurs(moteurs);
+            }
+
+            function postMoteurs(moteurs){
+                const url = 'http://192.168.4.155:5000/del';
+                post(url, moteurs);
+            }
+
+            function post(url, data) {
+                //Préparer la requête POST
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', url);
+
+                //Envoyer avec JSON dans le body
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                const json = JSON.stringify(data)
+                xhr.send(json);
+
+                //Écrire sur le UI pour aider au dépannage
+                document.getElementById('debugTxtId').innerHTML = 'Sending: ' + json;
+            }
+        </script>
+        
+    </body>
+
+</html>
